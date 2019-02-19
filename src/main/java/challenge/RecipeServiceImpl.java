@@ -20,8 +20,16 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	public void update(String id, Recipe recipe) {
-		recipe.set_id(id);
-		recipeRepository.save(recipe);
+		Optional<Recipe> rcp = recipeRepository.findById(id);
+		System.out.println(rcp.get().getComments());
+		if(rcp.isPresent()) {
+			rcp.get().setTitle(recipe.getTitle());
+			rcp.get().setDescription(recipe.getDescription());
+			rcp.get().setIngredients(recipe.getIngredients());
+			recipeRepository.save(rcp.get());
+			
+		}
+		
 	}
 
 	@Override
@@ -67,7 +75,7 @@ public class RecipeServiceImpl implements RecipeService {
 				likes.add(userId);
 				recipe.get().setLikes(likes);
 			}
-			update(id, recipe.get());
+			recipeRepository.save(recipe.get());
 		}
 	}
 
@@ -78,7 +86,7 @@ public class RecipeServiceImpl implements RecipeService {
 			if(recipe.get().getLikes()!=null) {
 				recipe.get().getLikes().remove(userId);
 			}
-			update(id, recipe.get());
+			recipeRepository.save(recipe.get());
 		}
 	}
 
@@ -94,7 +102,7 @@ public class RecipeServiceImpl implements RecipeService {
 				rcpComment.add(recipeComment);
 				recipe.get().setComments(rcpComment);
 			}
-			update(id, recipe.get());
+			recipeRepository.save(recipe.get());
 		}
 		return recipeComment;
 	}

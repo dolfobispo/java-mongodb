@@ -11,13 +11,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class RecipeComment {
 	@Id
-	private String _id;
+	private String id;
 	private String comment;
-	public String get_id() {
-		return _id;
+	public String getId() {
+		return id;
 	}
-	public void set_id(String _id) {
-		this._id = _id;
+	public void set_id(String id) {
+		this.id = id;
 	}
 	public String getComment() {
 		return comment;
@@ -25,9 +25,9 @@ public class RecipeComment {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public RecipeComment(String _id,String comment) {
+	public RecipeComment(String id,String comment) {
 		super();
-		this._id=_id;
+		this.id=id;
 		this.comment = comment;
 	}
 	public RecipeComment() {
